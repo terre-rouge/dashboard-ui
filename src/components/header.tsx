@@ -11,8 +11,8 @@ function Header({ user, loading }) {
             </Link>
           </li>
           <li>
-            <Link href="/about">
-              <a>About</a>
+            <Link href="/deployment">
+              <a>Deployment</a>
             </Link>
           </li>
           {!loading &&
