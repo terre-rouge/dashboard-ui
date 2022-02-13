@@ -14,9 +14,14 @@ export default withApiAuthRequired(async function deploy(req, res) {
     res.status(response.status || 200).json(status)
   } catch (error) {
     console.error(error)
-    res.status(error.status || 500).json({
-      code: error.code,
-      error: error.message,
-    })
+    if (error instanceof Error) {
+      res.status(500).json({
+        error: error.message,
+      })
+    } else {
+      res.status(500).json({
+        error: String(error),
+      })
+    }
   }
 })

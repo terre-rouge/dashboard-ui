@@ -1,12 +1,18 @@
 import Layout from '../components/layout'
-import { NextPage } from 'next'
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { GetServerSideProps, NextPage } from 'next'
+import { Claims, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import getStatus from '../lib/status'
 import fetcher from '../lib/fetcher'
 import useSWR from 'swr'
 import { useState } from 'react'
+import Image from 'next/image'
 
-const Home: NextPage = ({ user, status }) => {
+type HomeProps = {
+  user: Claims | undefined | null
+  status: string
+}
+
+export default function Home({ user, status }: HomeProps) {
   const [shouldDeploy, setShouldDeploy] = useState(false)
   const [disableButton, setDisableButton] = useState(false)
   const { data, error } = useSWR(shouldDeploy ? '/api/deploy' : null, fetcher)
@@ -20,7 +26,7 @@ const Home: NextPage = ({ user, status }) => {
     }, 120000)
   }
 
-  if (error) return <div>failed to load</div>
+  if (error || !user) return <div>failed to load</div>
 
   return (
     <Layout user={user}>
@@ -28,7 +34,7 @@ const Home: NextPage = ({ user, status }) => {
 
       <div>
         <h3>Profile (server rendered)</h3>
-        <img src={user.picture} alt="user picture" />
+        <Image src={user.picture} alt="user picture" width={50} height={50} />
         <p>nickname: {user.nickname}</p>
         <p>name: {user.name}</p>
         <p>status: {status}</p>
@@ -43,12 +49,8 @@ const Home: NextPage = ({ user, status }) => {
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps({ req, res }) {
-    // access the user session
     const session = getSession(req, res)
     const status = await getStatus(req, res)
-    console.log(status)
     return { props: { user: session?.user, status } }
   },
 })
-
-export default Home
