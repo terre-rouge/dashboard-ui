@@ -30,7 +30,7 @@ export default function Home({ user, status }: HomeProps) {
 
   return (
     <Layout user={user}>
-      <h1>Profile</h1>
+      <h1 className="text-3xl font-bold underline">Profile</h1>
 
       <div>
         <h3>Profile (server rendered)</h3>
