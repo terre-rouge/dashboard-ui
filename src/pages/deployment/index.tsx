@@ -29,8 +29,6 @@ export default function Deployment({ user, status }: DeploymentProps) {
 
   return (
     <Layout title="Deployment" user={user as User} status={status}>
-      <h1 className="text-3xl font-bold underline">Profile</h1>
-
       <div>
         <button onClick={triggerDeployment} disabled={disableButton}>
           Deploy

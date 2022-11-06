@@ -8,10 +8,11 @@ import {
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { User } from '../types/User'
+import { useRouter } from 'next/router'
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-  { name: 'Deployment', href: '/deployment', icon: RocketLaunchIcon, current: false },
+  { name: 'Dashboard', href: '/', icon: HomeIcon },
+  { name: 'Deployment', href: '/deployment', icon: RocketLaunchIcon },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -25,6 +26,7 @@ interface Props {
   children: ReactNode
 }
 export default function Layout({ title, user, status, children }: Props) {
+  const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const isAPIOnline = status === 'Online'
   return (
@@ -88,7 +90,7 @@ export default function Layout({ title, user, status, children }: Props) {
                         key={item.name}
                         href={item.href}
                         className={clsx(
-                          item.current
+                          router.asPath === item.href
                             ? 'bg-gray-900 text-white'
                             : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md'
@@ -96,7 +98,7 @@ export default function Layout({ title, user, status, children }: Props) {
                       >
                         <item.icon
                           className={clsx(
-                            item.current
+                            router.asPath === item.href
                               ? 'text-gray-300'
                               : 'text-gray-400 group-hover:text-gray-300',
                             'mr-4 flex-shrink-0 h-6 w-6'
@@ -135,7 +137,7 @@ export default function Layout({ title, user, status, children }: Props) {
                   key={item.name}
                   href={item.href}
                   className={clsx(
-                    item.current
+                    router.asPath === item.href
                       ? 'bg-gray-900 text-white'
                       : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -143,7 +145,9 @@ export default function Layout({ title, user, status, children }: Props) {
                 >
                   <item.icon
                     className={clsx(
-                      item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                      router.asPath === item.href
+                        ? 'text-gray-300'
+                        : 'text-gray-400 group-hover:text-gray-300',
                       'mr-3 flex-shrink-0 h-6 w-6'
                     )}
                     aria-hidden="true"
