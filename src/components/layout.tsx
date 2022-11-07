@@ -166,22 +166,22 @@ export default function Layout({ title, user, status, children }: Props) {
           <div className="flex flex-1 justify-between px-4">
             <div className="flex flex-1">
               <div className="flex items-center space-x-1">
-                <span className="text-sm font-medium">API status:</span>
+                <span className="text-sm font-medium mr-1">API status: </span>
                 <div className="flex items-center justify-center gap-1">
-                  <div
-                    className={clsx(
-                      isAPIOnline ? 'bg-green-100' : 'bg-gray-100',
-                      'h-4 w-4 rounded-full flex items-center justify-center'
-                    )}
-                    aria-hidden="true"
-                  >
-                    <div
+                  <span aria-hidden="true" className="flex h-2 w-2 relative">
+                    <span
+                      className={clsx(
+                        isAPIOnline ? 'bg-green-400 animate-ping' : 'bg-gray-400',
+                        'absolute inline-flex h-full w-full rounded-full opacity-75'
+                      )}
+                    ></span>
+                    <span
                       className={clsx(
                         isAPIOnline ? 'bg-green-400' : 'bg-gray-400',
-                        'h-2 w-2 rounded-full'
+                        'relative inline-flex rounded-full h-2 w-2'
                       )}
-                    />
-                  </div>
+                    ></span>
+                  </span>
                   <div className="text-sm font-medium text-gray-400">{status}</div>
                 </div>
               </div>

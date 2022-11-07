@@ -17,7 +17,7 @@ import clsx from 'clsx'
 const timeline = [
   {
     id: 1,
-    content: 'Exporting products on',
+    content: 'Exporting products from',
     target: 'Shopify',
     href: '#',
     time: '31s',
@@ -31,6 +31,7 @@ const timeline = [
     href: '#',
     time: '12s',
     icon: ArrowPathIcon,
+    spinning: true,
     iconBackground: 'bg-blue-500',
   },
   {
@@ -84,6 +85,7 @@ export default function Deployment({ user, status }: DeploymentProps) {
                       <span
                         className={clsx(
                           event.iconBackground,
+                          event.spinning ? 'animate-spin' : '',
                           'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white'
                         )}
                       >
