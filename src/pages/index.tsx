@@ -1,9 +1,6 @@
 import Layout from '../components/layout'
 import { Claims, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import getStatus from '../lib/status'
-import fetcher from '../lib/fetcher'
-import useSWR from 'swr'
-import { useState } from 'react'
 import { User } from '../types/User'
 import {
   AcademicCapIcon,
@@ -66,21 +63,6 @@ type HomeProps = {
 }
 
 export default function Home({ user, status }: HomeProps) {
-  const [shouldDeploy, setShouldDeploy] = useState(false)
-  const [disableButton, setDisableButton] = useState(false)
-  const { data, error } = useSWR(shouldDeploy ? '/api/deploy' : null, fetcher)
-
-  const triggerDeployment = () => {
-    setShouldDeploy(true)
-    setDisableButton(true)
-    setTimeout(() => {
-      setDisableButton(false)
-      setShouldDeploy(false)
-    }, 120000)
-  }
-
-  if (error || !user) return <div>failed to load</div>
-
   return (
     <Layout title="Dashboard" user={user as User} status={status}>
       <section aria-labelledby="quick-links-title">

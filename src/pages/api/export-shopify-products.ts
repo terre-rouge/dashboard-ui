@@ -4,7 +4,7 @@ export default withApiAuthRequired(async function deploy(req, res) {
   try {
     const { accessToken } = await getAccessToken(req, res)
 
-    const response = await fetch('http://localhost:6000/deploy', {
+    const response = await fetch('http://localhost:6000/export-shopify-products', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
