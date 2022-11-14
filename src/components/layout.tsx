@@ -2,6 +2,7 @@ import { Fragment, ReactNode, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
   Bars3BottomLeftIcon,
+  BuildingStorefrontIcon,
   HomeIcon,
   RocketLaunchIcon,
   XMarkIcon,
@@ -15,6 +16,7 @@ import logo from '../../public/logo.png'
 const navigation = [
   { name: 'Dashboard', href: '/', icon: HomeIcon },
   { name: 'Deployment', href: '/deployment', icon: RocketLaunchIcon },
+  { name: 'Shopify graphiql', href: '/graphiql', icon: BuildingStorefrontIcon },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -26,8 +28,9 @@ interface Props {
   user: User
   status: string
   children: ReactNode
+  fluid?: boolean
 }
-export default function Layout({ title, user, status, children }: Props) {
+export default function Layout({ title, user, status, children, fluid = false }: Props) {
   const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const isAPIOnline = status === 'Online'
@@ -153,7 +156,7 @@ export default function Layout({ title, user, status, children }: Props) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:pl-64">
+      <div className="flex flex-col md:pl-64 h-screen">
         <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
           <button
             type="button"
@@ -236,14 +239,7 @@ export default function Layout({ title, user, status, children }: Props) {
         </div>
 
         <main className="flex-1">
-          <div className="py-6">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-              <h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
-            </div>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-              <div className="py-4">{children}</div>
-            </div>
-          </div>
+          {fluid ? children : <div className="mx-auto max-w-7xl p-4 sm:p-6 md:p-8">{children}</div>}
         </main>
       </div>
     </div>

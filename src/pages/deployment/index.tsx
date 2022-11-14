@@ -13,37 +13,6 @@ import {
 import clsx from 'clsx'
 import useDeploy from '../../hooks/useDeploy'
 
-const timeline = [
-  {
-    id: 1,
-    content: 'Exporting products from',
-    target: 'Shopify',
-    href: '#',
-    time: '31s',
-    icon: CheckIcon,
-    iconBackground: 'bg-green-500',
-  },
-  {
-    id: 2,
-    content: 'Importing products on',
-    target: 'Algolia',
-    href: '#',
-    time: '12s',
-    icon: ArrowPathIcon,
-    spinning: true,
-    iconBackground: 'bg-blue-500',
-  },
-  {
-    id: 3,
-    content: 'Deploying Terre Rouge on',
-    target: 'Vercel',
-    href: '#',
-    time: '',
-    icon: ClockIcon,
-    iconBackground: 'bg-gray-400',
-  },
-]
-
 type DeploymentProps = {
   user: Claims | undefined | null
   status: string
